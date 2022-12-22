@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script><style>
+       .own-table{
+       	margin:50px;
+       }
+       .vehiclebtn{
+       display:flex;
+       width:100x;
+       }
+    </style>
+</head>
+<body>
+
+	<div>
+	<div class="d-flex flex-row justify-content-center own-table">
+		<table class="table table-striped table-bordered" data-toggle="table"
+  			data-search="true"
+  			data-search-align="left"
+  			data-url="json/data1.json">
+  			<thead class="table-dark">
+    			<tr>
+    				
+      				<th scope="col">TC </th>
+      				<th scope="col">First Name </th>
+      				<th scope="col">Last Name </th>
+      				<th scope="col">Email </th>
+      				<th scope="col">Birth Date</th>
+      			
+    			</tr>
+ 			</thead>
+ 			<tbody>
+ 			
+ 				<tr th:each ="person: ${persons}">
+ 					<!-- <td th:text="${consumer.id}"></td> -->
+ 					<td th:text="${person.tc}"></td>
+ 					<td th:text="${person.first_name}"></td>
+ 					<td th:text="${person.last_name}"></td>
+ 					<td th:text="${person.email}"></td>
+ 					
+ 					<td th:text="${#dates.format(person.birth_date, 'dd-MM-yyyy')}"></td>
+ 					<!-- <td> <a class="btn btn-primary btn-xs mb-1" th:href="@{/person/vehicles/{id}(id = ${person.id})}">Active Insurance</a></td> -->
+ 				</tr>
+ 					
+ 			</tbody>
+		</table>
+	
+	</div>
+	<div class="d-flex flex-row justify-content-center">
+		
+	
+	
+	</div>
+	<div class="own-table">
+			<h2>Life Insurance <a class="btn btn-primary btn-xs mb-1" th:href="@{/life/addLife/{id}(id = ${id})}">Add Life</a></h2>
+			
+			<table class="table table-striped table-bordered" data-toggle="table"
+  			data-search="true"
+  			data-search-align="left"
+  			data-url="json/data1.json"
+  			>
+  			<thead class="table-dark">
+    			<tr>
+    				
+      				<th scope="col">ID</th>
+      				
+      				<th scope="col">Career</th>
+      				<th scope="col">Diseases</th>
+      				<th scope="col">Security Deposit</th>
+      				<th scope="col">Price</th>
+      				<th scope="col">Actions </th>
+    			</tr>
+ 			</thead>
+ 			<tbody>
+ 			
+ 				<tr th:each ="life: ${lifes}">
+ 					<td th:text="${life.id}"></td>
+ 					<td th:text="${life.career.name}"></td>
+ 					<td th:text="${life.disease.name}"></td>
+ 					<td th:text="${life.security_deposit}"></td>
+ 					<td th:text="${life.proposal.price}"></td>
+ 					
+ 					<td>
+ 							<a class="btn vehiclebtn btn-warning btn-m" th:href="@{/life/Edit/{id}(id = ${life.id})}">Edit Propose</a>
+ 							<form method="POST" th:action="@{/life/_delete/{id}(id = ${life.id})}">
+    							<button type="submit" name="submit" value="value" class=" btn btn-danger btn-m mb-1 vehiclebtn">Delete</button>
+							</form>
+							<a class="btn vehiclebtn btn-light btn-m" th:href="@{/life/Detail/{id}(id = ${life.id})}">Detail</a>
+ 					</td>
+ 				</tr> 
+ 					
+ 			</tbody>
+			</table>
+	</div>
+	<div class="d-flex flex-row justify-content-center ">
+		<div class=" own-table ">
+			<h2>vehicles         <a class="btn btn-primary btn-xs mb-1" th:href="@{/vehicle/addVehicle/{id}(id = ${id})}">Add vehicle</a></h2>
+			
+			<table class="table table-striped table-bordered " data-toggle="table"
+  			data-search="true"
+  			data-search-align="left"
+  			data-url="json/data1.json">
+  			<thead class="table-dark">
+    			<tr>
+    			
+      				<th scope="col"> Chassis Number</th>
+      				<th scope="col"> Year</th>
+      				<th scope="col">Model</th>
+      				<th scope="col">Plate </th>
+      				<th scope="col">Action </th>
+    			</tr>
+ 			</thead>
+ 			<tbody>
+ 			
+ 				<tr th:each ="vehicle: ${vehicles}">
+ 					<td th:text="${vehicle.chassis_number}"></td>
+ 					<td th:text="${vehicle.year}"></td>
+ 					<td th:text="${vehicle.vehicleBrand.name}"></td>
+ 					<td th:text="${vehicle.plate}"></td>
+ 						<td ><a class="btn carbtn btn-primary btn-m"th:href="@{/vehicle/InsuranceCreate/{id}(id = ${vehicle.id})}">Create Insurance</a> 
+ 							<a class="btn carbtn btn-warning btn-m" th:href="@{/vehicle/Edit/{id}(id = ${vehicle.id})}">Edit Plate</a>
+ 							<form method="POST" th:action="@{/vehicle/_delete/{vehicleid}(vehicleid = ${vehicle.id})}">
+    							<button type="submit" name="submit" value="value" class=" btn btn-danger btn-m mb-1 carbtn">Delete</button>
+							</form>
+							<a class="btn vehiclebtn btn-light btn-m" th:href="@{/vehicle/Detail/{id}(id = ${vehicle.id})}">Detail</a>
+ 						</td>
+
+ 				</tr>
+ 					
+ 			</tbody>
+		</table>
+	
+		</div>
+		
+		<div class=" own-table">
+			<h2>Builds         <a class="btn btn-primary btn-xs mb-1" th:href="@{/dask/addDask/{id}(id = ${id})}">Add Dask</a></h2>
+			<table class="table table-striped table-bordered " data-toggle="table"
+  			data-search="true"
+  			data-search-align="left"
+  			data-url="json/data1.json">
+  			<thead class="table-dark">
+    			<tr>
+    				
+      				<th scope="col">ID </th>
+      				<th scope="col">Adress </th>
+      				<th scope="col">Building Year</th>
+      				<th scope="col">City</th>
+      				<th scope="col">Type of Build</th>
+      				<th scope="col">Action </th>
+    			</tr>
+ 			</thead>
+ 			<tbody>
+ 			
+ 				<tr th:each ="dask: ${dasks}">
+ 					<!-- <td th:text="${consumer.id}"></td> -->
+ 					<td th:text="${dask.id}"></td>
+ 					<td th:text="${dask.adress}"></td>
+ 					<td th:text="${dask.buildtype.name}"></td>
+ 					<td th:text="${dask.city.name}"></td>
+ 					<td><a class="btn btn-primary btn-m"th:href="@{/dask/InsuranceCreate/{id}(id = ${dask.id})}">Create Insurance</a>
+ 							<a class="btn carbtn btn-warning btn-m" th:href="@{/dask/Edit/{id}(id = ${dask.id})}">Edit Build</a>
+ 							<form method="POST" th:action="@{/dask/_delete/{id}(id = ${dask.id})}">
+    							<button type="submit" name="submit" value="value" class=" btn btn-danger btn-m mb-1 carbtn">Delete</button>
+							</form>
+							<a class="btn carbtn btn-light btn-m" th:href="@{/dask/Detail/{id}(id = ${dask.id})}">Detail</a>
+							</td>
+ 				</tr>
+ 					
+ 			</tbody>
+		</table></div>
+	
+	
+	</div>
+	</div>
+</body>
+</html>

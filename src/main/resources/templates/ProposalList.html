@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>	
+	<style >
+		.personadd{
+		width:85%;
+		margin:center;
+		}
+		.personbtn{
+			width:100px;
+			margin-left:30px;
+		}
+	</style>
+</head>
+<body>
+<div th:replace="Navbar::navbar">
+</div>
+	<div>
+			<table class="table table-striped table-bordered" data-toggle="table"
+  			data-search="true"
+  			data-search-align="left"
+  			data-url="json/data1.json"
+  			>
+  			<thead class="table-dark">
+    			<tr>
+    				
+      				<th scope="col">Proposal ID </th>
+      				<th scope="col">Proposal Order Date </th>
+      				<th scope="col">Proposal Accepted Date</th>
+      				<th scope="col">Proposal Price</th>
+      				<th scope="col">Proposal End Date</th>
+      				<th scope="col">Proposal Status </th>
+
+      				
+    			</tr>
+ 			</thead>
+ 			<tbody>
+ 			
+ 				<tr th:each ="proposal: ${proposals}">
+ 					<!-- <td th:text="${consumer.id}"></td> -->
+ 					<td th:text="${proposal.id}"></td>
+ 					<td th:text="${proposal.order_date}"></td>
+ 					<td th:text="${proposal.accepted_date}"></td>
+ 					<td th:text="${proposal.price}"></td>
+ 					<td  
+ 					th:text="${#dates.format(proposal.end_date, 'dd-MM-yyyy')}">> </td>
+ 					<div th:switch="${proposal.status}">
+ 					<td th:case="'accepted' ">Accepted</td>
+ 					<td th:case="'declined'">Declined</td>
+ 					<td th:case="NULL">Waiting</td>
+ 					<td th:case="'end'">End</td>
+ 					<td th:case="'canceled'">Canceled</td>
+ 					</div>
+ 					
+ 				</tr>
+ 				
+ 					
+ 			</tbody>
+		</table>
+	
+	
+	</div>
+</body>
+</html>
